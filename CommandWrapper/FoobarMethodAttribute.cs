@@ -9,4 +9,8 @@
     public class FoobarMethodAttribute : Attribute
     {
     }
+
+    public class AsyncFoobarMethodAttribute : FoobarMethodAttribute
+    {
+    }
 }

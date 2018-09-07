@@ -14,6 +14,7 @@
 
 
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Windows.Documents;
 using GalaSoft.MvvmLight;
 
@@ -49,6 +50,8 @@ namespace CommandWrapper.MVVM.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<BasicThreadFoobarViewModel>();
             SimpleIoc.Default.Register<PoolFoobarViewModel>();
+            SimpleIoc.Default.Register<GoTapFoobarViewModel>();
+            TabViewModels.Add(GoTapFoobar);
             TabViewModels.Add(PoolFoobar);
             TabViewModels.Add(BasicThreadFoobar);
         }
@@ -60,6 +63,8 @@ namespace CommandWrapper.MVVM.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
+
+        public GoTapFoobarViewModel GoTapFoobar => ServiceLocator.Current.GetInstance<GoTapFoobarViewModel>();
 
         public PoolFoobarViewModel PoolFoobar
         {

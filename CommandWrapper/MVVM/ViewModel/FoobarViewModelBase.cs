@@ -73,7 +73,7 @@ namespace CommandWrapper.MVVM.ViewModel
                 select method;
             foreach (var method in methods)
             {
-                if (method.GetCustomAttributes(typeof(AsyncStateMachineAttribute), false).Length > 0)
+                if (method.GetCustomAttributes(typeof(AsyncStateMachineAttribute), false).Length > 0 || method.GetCustomAttributes(typeof(AsyncFoobarMethodAttribute), false).Length > 0)
                 {
                     WriteLine($"{method.Name} is async method");
                     CmdList.Add(new FoobarRunner(method.Name, () =>
