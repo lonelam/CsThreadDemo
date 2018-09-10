@@ -77,6 +77,8 @@
     <Compile Include="MVVM\Model\FoobarRunner.cs" />
     <Compile Include="MVVM\ViewModel\AsyncKeywordFoobarViewModel.cs" />
     <Compile Include="MVVM\ViewModel\BasicThreadFoobarViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\ConcurrentFoobarViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CustomAwaitFoobarViewModel.cs" />
     <Compile Include="MVVM\ViewModel\FoobarViewModelBase.cs" />
     <Compile Include="MVVM\ViewModel\GoTapFoobarViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />

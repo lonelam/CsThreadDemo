@@ -83,6 +83,7 @@ namespace CommandWrapper.MVVM.ViewModel
                     CmdList.Add(new FoobarRunner(method.Name, () =>
                     {
                         Task t = new Task(()=>method.Invoke(this, null));
+                        t.Start();
                     }));
                 }
                 else
@@ -93,7 +94,7 @@ namespace CommandWrapper.MVVM.ViewModel
 
             WriteLine("viewmodel initialized\n");
         }
-        
+
         public void DesignFill()
         {
             for (int i = 0; i < 10; i++)

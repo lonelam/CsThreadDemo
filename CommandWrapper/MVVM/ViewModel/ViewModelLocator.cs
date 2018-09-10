@@ -52,6 +52,8 @@ namespace CommandWrapper.MVVM.ViewModel
             SimpleIoc.Default.Register<PoolFoobarViewModel>();
             SimpleIoc.Default.Register<GoTapFoobarViewModel>();
             SimpleIoc.Default.Register<AsyncKeywordFoobarViewModel>();
+            SimpleIoc.Default.Register<CustomAwaitFoobarViewModel>();
+            TabViewModels.Add(CustomAwait);
             TabViewModels.Add(AsyncKeyword);
             TabViewModels.Add(GoTapFoobar);
             TabViewModels.Add(PoolFoobar);
@@ -79,8 +81,11 @@ namespace CommandWrapper.MVVM.ViewModel
         }
 
         public AsyncKeywordFoobarViewModel AsyncKeyword => ServiceLocator.Current.GetInstance<AsyncKeywordFoobarViewModel>();
+        
+        public CustomAwaitFoobarViewModel CustomAwait => ServiceLocator.Current.GetInstance<CustomAwaitFoobarViewModel>();
 
         public List<ViewModelBase> TabViewModels { get; set; } = new List<ViewModelBase>();
+
 
         public static void Cleanup()
         {
