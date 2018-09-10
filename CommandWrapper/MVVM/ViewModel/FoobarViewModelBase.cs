@@ -1,10 +1,13 @@
 ﻿
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using CommandWrapper.MVVM.Model;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Threading;
 
 namespace CommandWrapper.MVVM.ViewModel
@@ -31,6 +34,8 @@ namespace CommandWrapper.MVVM.ViewModel
             get => this._consoleText;
             set { this.Set(() => this.ConsoleText, ref this._consoleText, value); }
         }
+
+        public RelayCommand ClearConsoleTextCommand { get; private set; }
 
         private ObservableCollection<FoobarRunner> _cmdList = new ObservableCollection<FoobarRunner>();
 
@@ -75,11 +80,9 @@ namespace CommandWrapper.MVVM.ViewModel
             {
                 if (method.GetCustomAttributes(typeof(AsyncStateMachineAttribute), false).Length > 0 || method.GetCustomAttributes(typeof(AsyncFoobarMethodAttribute), false).Length > 0)
                 {
-                    WriteLine($"{method.Name} is async method");
                     CmdList.Add(new FoobarRunner(method.Name, () =>
                     {
-                        Thread t = new Thread(() => method.Invoke(this, null));
-                        t.Start();
+                        Task t = new Task(()=>method.Invoke(this, null));
                     }));
                 }
                 else
@@ -90,10 +93,32 @@ namespace CommandWrapper.MVVM.ViewModel
 
             WriteLine("viewmodel initialized\n");
         }
+        
+        public void DesignFill()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                CmdList.Add(new FoobarRunner($"FoobarRunner#{i}", null));
+            }
+
+            ConsoleText = "Testing Text";
+            for (int i = 0; i < 8; i++)
+            {
+                ConsoleText = ConsoleText + ConsoleText;
+            }
+        }
 
         public FoobarViewModelBase()
         {
-            InitMethods();
+            if (IsInDesignModeStatic)
+            {
+                DesignFill();
+            }
+            else
+            {
+                InitMethods();
+                ClearConsoleTextCommand = new RelayCommand(() => ConsoleText = string.Empty);
+            }
         }
         #endregion
     }
